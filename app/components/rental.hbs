@@ -4,7 +4,7 @@
   <Rental::Image src={{@rental.image}} alt="A picture of {{@rental.title}}" />
   <div class="details">
     <h3>
-      <LinkTo @route="rental" @model="{{@rental}}">
+      <LinkTo @route="rental" @model={{@rental}}>
         {{@rental.title}}
       </LinkTo>
     </h3>
