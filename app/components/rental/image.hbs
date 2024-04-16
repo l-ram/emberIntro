@@ -1,0 +1,12 @@
+<button
+  type="button"
+  class="image {{if this.isLarge 'large'}}"
+  {{on "click" this.toggleSize}}
+>
+  <img ...attributes width="100%" height="100%" />
+  {{#if this.isLarge}}
+    <small>View Smaller</small>
+  {{else}}
+    <small>View Larger</small>
+  {{/if}}
+</button>
