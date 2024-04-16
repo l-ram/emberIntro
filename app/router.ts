@@ -1,11 +1,29 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'intro/config/environment';
+import routes from './routes/routes';
 
-export default class Router extends EmberRouter {
-  location = config.locationType;
-  rootURL = config.rootURL;
+interface RouteDef {
+  [key: string]: {
+    path: string;
+  };
 }
 
-Router.map(function () {
-  // Add route declarations here
+const routesT: RouteDef = routes;
+
+const Router = EmberRouter.extend({
+  location: config.locationType,
+  rootURL: config.rootURL,
 });
+
+Router.map(function () {
+  Object.keys(routesT).forEach((routeName) => {
+    const route = routesT[routeName];
+    this.route(routeName, { path: route?.path });
+  });
+  this.route('index');
+  this.route('about');
+  this.route('contact');
+  this.route('rentals');
+});
+
+export default Router;
