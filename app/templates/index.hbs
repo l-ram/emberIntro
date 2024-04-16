@@ -1,0 +1,15 @@
+<Jumbo>
+
+  <h2>Welcome to super rentals</h2>
+  <p>We hope you find a place to stay</p>
+
+  <LinkTo @route="about" class="button">About us</LinkTo>
+
+  <div class="rentals">
+    <ul class="results">
+      {{#each @model as |rental|}}
+        <li><Rental @rental={{rental}} /></li>
+      {{/each}}
+    </ul>
+  </div>
+</Jumbo>
