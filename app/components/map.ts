@@ -1,5 +1,5 @@
-import Component from "@glimmer/component";
-import ENV from "../config/environment";
+import Component from '@glimmer/component';
+import ENV from '../config/environment';
 
 export interface MapSignature {
   // The arguments accepted by the component

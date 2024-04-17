@@ -1,6 +1,5 @@
-import Route from "@ember/routing/route";
-
-const COMMUNITY_CATEGORIES = ["Condo", "Townhouse", "Apartment"];
+import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
 interface IRentals {
   id: string;
@@ -19,26 +18,9 @@ interface IRentals {
 }
 
 export default class IndexRoute extends Route<IRentals> {
+  @service store: any;
+
   async model() {
-    let response = await fetch("/api/rentals.json");
-    let { data } = await response.json();
-    const cleaned = data.map((model: any) => {
-      let { id, attributes } = model;
-      let type;
-
-      if (COMMUNITY_CATEGORIES.includes(attributes.category)) {
-        type = "Community";
-      } else {
-        type = "Standalone";
-      }
-
-      return {
-        id,
-        type,
-        ...attributes,
-      };
-    });
-    console.log("clean", cleaned);
-    return cleaned;
+    return this.store.findAll('rental');
   }
 }
