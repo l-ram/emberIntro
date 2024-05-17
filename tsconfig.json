@@ -7,6 +7,9 @@
     // work with TypeScript.
     "baseUrl": ".",
     "paths": {
+      "ember-simple-auth/*": [
+        "node_modules/ember-simple-auth"
+      ],
       "intro/tests/*": [
         "tests/*"
       ],

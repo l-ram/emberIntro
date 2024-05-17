@@ -1,8 +1,7 @@
-import JSONAPIAdapter from "@ember-data/adapter/json-api";
-import DS from "ember-data";
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 
 export default class ApplicationAdapter extends JSONAPIAdapter {
-  namespace: string = "api";
+  namespace: string = 'api';
 
   buildURL(...args: any): string {
     return `${super.buildURL(...args)}.json`;

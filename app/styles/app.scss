@@ -1,10 +1,6 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
-/* stylelint-disable no-descending-specificity, media-feature-range-notation */
 @import url("https://fonts.googleapis.com/css?family=Lato:300,300italic,400,700,700italic");
 
-/**
- * Base Elements
- */
+@import "@appuniversum/ember-appuniversum/styles";
 
 * {
   margin: 0;
@@ -46,10 +42,6 @@ p {
   margin-bottom: 15px;
 }
 
-/**
- * Button
- */
-
 .button {
   padding: 10px 30px;
   text-decoration: none;
@@ -67,20 +59,12 @@ p {
   opacity: 1;
 }
 
-/**
- * Body Container
- */
-
 .container {
   max-width: 1024px;
   min-height: 100vh;
   background: #f9f9f9;
   margin: 0 auto;
 }
-
-/**
- * Top Navigation
- */
 
 .menu {
   height: 4em;
@@ -186,17 +170,9 @@ p {
   background: #f3f3f3;
 }
 
-/**
- * Content Area
- */
-
 .body {
   padding: 15px;
 }
-
-/**
- * Similar to Jumbotron
- */
 
 .jumbo {
   padding: 50px;
@@ -223,10 +199,6 @@ p {
   top: -25px;
   right: -20px;
 }
-
-/**
- * Individual Rental Listing
- */
 
 .rental {
   margin-top: 15px;
@@ -301,8 +273,6 @@ p {
   margin-bottom: -15px;
   text-align: center;
   color: #016aba;
-
-  /* This is needed to fix a safari clipping issue */
   position: relative;
 }
 
@@ -429,10 +399,6 @@ p {
   }
 }
 
-/**
- * Utilities
- */
-
 .light {
   font-weight: 300;
 }
@@ -473,5 +439,3 @@ p {
   padding: 0;
   border: 0;
 }
-
-/* stylelint-enable no-descending-specificity, media-feature-range-notation */

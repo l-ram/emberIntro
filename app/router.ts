@@ -25,6 +25,7 @@ Router.map(function () {
   this.route('contact');
   this.route('rentals');
   this.route('register');
+  this.route('login');
 });
 
 export default Router;

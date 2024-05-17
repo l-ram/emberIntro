@@ -23,7 +23,7 @@ export default class ShareButtonComponent extends Component<ShareButtonSignature
   }
 
   get shareURL() {
-    let url = new URL(TWEET_INTENT);
+    const url = new URL(TWEET_INTENT);
 
     url.searchParams.set('url', this.currentURL);
 

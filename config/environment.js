@@ -2,6 +2,15 @@
 
 module.exports = function (environment) {
   const ENV = {
+    emberSimpleAuth: {
+      authenticationRoute: 'login',
+      routeAfterAuthentication: 'index',
+      routeIfAlreadyAuthenticated: 'index',
+    },
+    supabase: {
+      url: 'https://thtvxlwlqpiynffqemmy.supabase.co',
+      key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRodHZ4bHdscXBpeW5mZnFlbW15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTM1MzYxNDcsImV4cCI6MjAyOTExMjE0N30.SWIlJ_EfdX573jpamxNBcD374feZSG4_zVOPKP7KRUA',
+    },
     modulePrefix: 'intro',
     environment,
     rootURL: '/',

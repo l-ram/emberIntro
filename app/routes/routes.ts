@@ -4,4 +4,6 @@ export default {
   contact: { path: 'contact' },
   rental: { path: 'rentals/:rental_id' },
   register: { path: 'register' },
+  login: { path: 'login' },
+  account: { path: 'account' },
 };
