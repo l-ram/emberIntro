@@ -12,21 +12,27 @@
 <AuApp>
   <AuMainHeader @appTitle="Ember & SPARQL">
 
-    <AuButton @skin="link" @icon="key">
-      About
-    </AuButton>
-
     {{#if this.auth.isLoggedIn}}
 
-      <AuDropdown @title="Welcome back!" @alignment="right" role="menu">
-        <AuButton @skin="link" role="menuitem">
-          <AuIcon
-            @icon="logout"
-            @alignment="left"
-            {{on "click" this.logout}}
-          />Afmelden
-        </AuButton>
-      </AuDropdown>
+      <p>Welcome back!</p>
+
+      <AuButton
+        @skin="link"
+        @icon="account"
+        role="menuitem"
+        {{!-- {{on "click" this.logout}} --}}
+      >
+        Account
+      </AuButton>
+
+      <AuButton
+        @skin="link"
+        @icon="logout"
+        role="menuitem"
+        {{on "click" this.logout}}
+      >
+        Afmelden
+      </AuButton>
 
     {{else}}
 
