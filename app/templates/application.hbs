@@ -16,16 +16,25 @@
       About
     </AuButton>
 
-{{/if session.isLoggedIn}}
-    <AuButton @skin="link" @icon="login">
-      Afnmelden
-    </AuButton>
+    {{#if this.auth.isLoggedIn}}
+
+      <AuDropdown @title="Welcome back!" @alignment="right" role="menu">
+        <AuButton @skin="link" role="menuitem">
+          <AuIcon
+            @icon="logout"
+            @alignment="left"
+            {{on "click" this.logout}}
+          />Afmelden
+        </AuButton>
+      </AuDropdown>
 
     {{else}}
-<AuButton @skin="link" @icon="login">
-      Aanmelden
-    </AuButton>
 
+      <AuButton @skin="link" @icon="login" {{on "click" this.loginUser}}>
+        Aanmelden
+      </AuButton>
+
+    {{/if}}
 
   </AuMainHeader>
 

@@ -1,11 +1,21 @@
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
-export default class AuthService extends Service {}
+export default class AuthService extends Service {
+  @tracked isLoggedIn: boolean = false;
+  @tracked isAdmin: boolean = false;
 
-// Don't remove this declaration: this is what enables TypeScript to resolve
-// this service using `Owner.lookup('service:auth')`, as well
-// as to check when you pass the service name as an argument to the decorator,
-// like `@service('auth') declare altName: AuthService;`.
+  login(isAdmin: boolean = false): void {
+    this.isLoggedIn = true;
+    this.isAdmin = isAdmin;
+  }
+
+  logout(): void {
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+  }
+}
+
 declare module '@ember/service' {
   interface Registry {
     auth: AuthService;

@@ -1,13 +1,19 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
-import type SessionService from 'ember-simple-auth/services/session';
+import AuthService from 'intro/services/auth';
 
 export default class ApplicationController extends Controller {
-  @service declare session: SessionService<{}>;
+  @service auth!: AuthService;
 
-  @action
-  logout() {
-    this.session.invalidate();
-  }
+  loginUser = () => {
+    this.auth.login(false);
+  };
+
+  loginAdmin = () => {
+    this.auth.login(true);
+  };
+
+  logout = () => {
+    this.auth.logout();
+  };
 }
