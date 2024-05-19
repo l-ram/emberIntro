@@ -1,49 +1,7 @@
 {{page-title "QuickstartTS"}}
 
 <AuApp>
-  <div class="container">
-    <NavBar />
-    <div class="body">
-      {{outlet}}
-    </div>
-  </div>
-</AuApp>
-
-<AuApp>
-  <AuMainHeader @appTitle="Ember & SPARQL">
-
-    {{#if this.auth.isLoggedIn}}
-
-      <p>Welcome back!</p>
-
-      <AuButton
-        @skin="link"
-        @icon="account"
-        role="menuitem"
-        {{!-- {{on "click" this.logout}} --}}
-      >
-        Account
-      </AuButton>
-
-      <AuButton
-        @skin="link"
-        @icon="logout"
-        role="menuitem"
-        {{on "click" this.logout}}
-      >
-        Afmelden
-      </AuButton>
-
-    {{else}}
-
-      <AuButton @skin="link" @icon="login" {{on "click" this.loginUser}}>
-        Aanmelden
-      </AuButton>
-
-    {{/if}}
-
-  </AuMainHeader>
-
+  <NavBar />
   <AuMainContainer as |m|>
 
     <m.content @scroll={{true}}>
@@ -71,21 +29,23 @@
 
               <AuContent @skin="large">
 
-                <h1>Gelinkt Notuleren</h1>
+                <h1>Graph Visualisation</h1>
 
-                <p class="au-c-heading au-c-heading--4">Een webapplicatie die
-                  helpt met het opmaken en publiceren van agenda's, notulen en
-                  besluiten voor Lokale Besturen.</p>
+                <p class="au-c-heading au-c-heading--4">Using SPARQL queries we
+                  can query the graph database and convert the JSON results to a
+                  data structure suitable for D3 force.</p>
 
-                <p>Lukt het aanmelden niet? Neem contact op met uw interne
-                  beheerder. Indien er zich een probleem voordoet, contacteer
+                <p>D3 force allows us to generate custom graph data
+                  visualisations. These visuals could be informational,
+                  analytical or help in user navigation by making them
+                  interactive.
                   <a
                     class="au-c-link"
                     href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
                   >gebruikersbeheer Vlaanderen</a>.</p>
 
-                <p>Het aanmelden gebeurt in een pop-up; zorg dat de instellingen
-                  van uw browser correct staan indien deze niet verschijnt.</p>
+                <p>The following are examples of potential use cases for graph
+                  visualisations</p>
 
               </AuContent>
 

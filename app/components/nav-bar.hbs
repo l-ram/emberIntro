@@ -1,14 +1,30 @@
-<nav class="menu">
+<AuMainHeader @appTitle="Ember & SPARQL">
 
-  <LinkTo @route="index" class="menu-index"><h1>SuperRentals</h1></LinkTo>
+  {{#if this.auth.isLoggedIn}}
 
-  <div class="links">
+    <p>Welcome back!</p>
+    <AuButton
+      @skin="link"
+      @icon="logout"
+      role="menuitem"
+      {{on "click" this.logout}}
+    >
+      Afmelden
+    </AuButton>
+    <AuButton @skin="link" @icon="account" role="menuitem">
+      Account
+    </AuButton>
+
     <LinkTo @route="about" class="menu-about">About</LinkTo>
 
-    <LinkTo @route="contact" class="menu-contact">Contact</LinkTo>
+  {{else}}
 
-    <button type="button" {{action "logout"}}>Logout</button>
-    Login
-  </div>
+    <AuButton @skin="link" @icon="login" {{on "click" this.loginUser}}>
+      Aanmelden
+    </AuButton>
 
-</nav>
+    <LinkTo @route="about" class="menu-about">About</LinkTo>
+
+  {{/if}}
+
+</AuMainHeader>
