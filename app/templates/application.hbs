@@ -70,10 +70,11 @@
       <section class="au-o-region-large au-u-background-gray-200">
         <div class="au-o-layout">
           <AuContent @skin="large" class="au-u-margin-bottom">
-            <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">De
-              functionaliteiten van Gelinkt Notuleren</AuHeading>
-            <p>Alle functionaliteiten, samen met handige tips & tricks, kan u
-              bekijken in handleiding.
+            <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">Show
+              relatinships with people</AuHeading>
+            <p>With an API and using EmberData we can connect to the RDF
+              database with a SPARQL query and gather relationships for the
+              current user.
               <a
                 class="au-c-link"
                 href="#!"
@@ -82,65 +83,12 @@
               >Bekijk de handleiding hier.</a></p>
           </AuContent>
           <div class="au-o-grid au-o-grid--small">
-            <div class="au-o-grid__item au-u-1-2@small">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="pencil">
-                  <AuHeading @level="3" @skin="4">
-                    Feature
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p>Feature description</p>
-                  <ul>
-                    <li>Feature list;</li>
-                    <li>Feature list;</li>
-                    <li>Feature list;</li>
-                  </ul>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <a
-                      class="au-c-button"
-                      href="#!"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >Manual link</a>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="pencil">
-                  <AuHeading @level="3" @skin="4">
-                    Feature
-                  </AuHeading>
 
-                </c.header>
+            <SparqlQuery::SparqlQuery
+              @query="SELECT * WHERE {?s ?p ?o} @limit={{10}}"
+            />
 
-                <c.content>
-
-                  <p>Feature description</p>
-
-                  <ul>
-
-                    <li>Feature list;</li>
-                    <li>Feature list;</li>
-                    <li>Feature list;</li>
-                  </ul>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <a
-                      class="au-c-button"
-                      href="#!"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >Manual link</a>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
+            <GraphViz::GraphViz />
           </div>
         </div>
 
