@@ -8,17 +8,12 @@
     </c.header>
     <c.content>
 
-      <AuTextarea value={{@query}} />
+      <AuTextarea value={{this.value}} {{on "input" this.updateQuery}} />
 
     </c.content>
     <c.footer>
       <p>
-        <a
-          class="au-c-button"
-          href="#!"
-          rel="noopener noreferrer"
-          target="_blank"
-        >Submit</a>
+        <button type="button" {{on "click" this.submitQuery}}>Submit</button>
       </p>
     </c.footer>
   </AuCard>
