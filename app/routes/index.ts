@@ -1,5 +1,8 @@
 /* eslint-disable prettier/prettier */
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+import sparql from "intro/services/sparql";
+
 export interface SPARQLQuerySelectResultsJSON {
   head: {
     vars: string[];
@@ -59,6 +62,7 @@ export interface TripleObject {
 }
 
 export default class SparqlRoute extends Route {
+  @service declare sparql: sparql
 
   queryParams = {
     query: {
@@ -71,21 +75,7 @@ export default class SparqlRoute extends Route {
       return;
     }
 
-    console.log(params.query)
-    const url = "http://dbpedia.org/sparql";
-    const response = await fetch(url + "?query=" + encodeURIComponent(params.query), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/sparql-query",
-        Accept: "application/sparql-results+json",
-      },
-    });
-
-    if (response.status !== 200) {
-      return
-    }
-
-    const jsonData = await response.json() as Promise<SPARQLQuerySelectResultsJSON>;
+    const jsonData = await this.sparql.fetchData(params.query);
 
     console.log("got data?:", jsonData);
 

@@ -2,20 +2,14 @@
 
 <AuApp>
   <NavBar />
-  <AuMainContainer as |m| >
+  <AuMainContainer as |m|>
 
     <m.content @scroll={{true}}>
 
-      <AuContentHeader
-        @titlePartOne="Vlaanderen"
-        @titlePartTwo="is lokaal bestuur"
-      >
+      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
 
-        <img
-          size="25px"
-          src={{"../assets/images/teaching-tomster.png"}}
-          alt="Foto van een laptop met daarop het vlaanderen logo."
-        />
+        <img size="25px" src={{"../assets/images/teaching-tomster.png"}}
+          alt="Foto van een laptop met daarop het vlaanderen logo." />
 
       </AuContentHeader>
 
@@ -39,10 +33,10 @@
                   visualisations. These visuals could be informational,
                   analytical or help in user navigation by making them
                   interactive.
-                  <a
-                    class="au-c-link"
-                    href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
-                  >gebruikersbeheer Vlaanderen</a>.</p>
+                  <a class="au-c-link"
+                    href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer
+                    Vlaanderen</a>.
+                </p>
 
                 <p>The following are examples of potential use cases for graph
                   visualisations</p>
@@ -51,9 +45,7 @@
 
             </div>
 
-            <div
-              class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium"
-            >
+            <div class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium">
 
               <AuButton @icon="login" @iconAlignment="left">
                 Aanmelden
@@ -71,22 +63,16 @@
         <div class="au-o-layout">
           <AuContent @skin="large" class="au-u-margin-bottom">
             <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">Show
-              relatinships with people</AuHeading>
+              relationships with people</AuHeading>
             <p>With an API and using EmberData we can connect to the RDF
               database with a SPARQL query and gather relationships for the
               current user.
-              <a
-                class="au-c-link"
-                href="#!"
-                target="_blank"
-                rel="noopener noreferrer"
-              >Bekijk de handleiding hier.</a></p>
+              <a class="au-c-link" href="#!" target="_blank" rel="noopener noreferrer">Bekijk de handleiding hier.</a>
+            </p>
           </AuContent>
           <div class="au-o-grid au-o-grid--small">
 
-            <SparqlQuery::SparqlQuery
-              @query="SELECT * WHERE {?s ?p ?o} @limit={{10}}"
-            />
+            <SparqlQuery::SparqlQuery @query="SELECT * WHERE {?s ?p ?o} @limit={{10}}" />
 
             <GraphViz::GraphViz />
           </div>
@@ -102,10 +88,10 @@
 
         <AuContent @skin="small">
           <p>Uitgegeven door
-            <a
-              class="au-c-link"
-              href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur"
-            >Agentschap Binnenlands Bestuur</a></p>
+            <a class="au-c-link"
+              href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur">Agentschap
+              Binnenlands Bestuur</a>
+          </p>
 
           <ul class="au-c-list-horizontal">
 
