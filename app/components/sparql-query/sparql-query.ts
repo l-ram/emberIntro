@@ -14,6 +14,6 @@ export default class SparqlQueryComponent extends Component {
   }
 
   @action submitQuery() {
-    this.router.transitionTo('index', { queryParams: { query: this.query } });
+    this.router.transitionTo({ queryParams: { query: this.query } });
   }
 }

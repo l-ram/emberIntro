@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import Route from '@ember/routing/route';
-
 export interface SPARQLQuerySelectResultsJSON {
   head: {
     vars: string[];
@@ -61,7 +60,17 @@ export interface TripleObject {
 
 export default class SparqlRoute extends Route {
 
+  queryParams = {
+    query: {
+      refreshModel: true
+    }
+  };
+
   async model(params: { query: string }) {
+    if (!params.query) {
+      return;
+    }
+
     console.log(params.query)
     const url = "http://dbpedia.org/sparql";
     const response = await fetch(url + "?query=" + encodeURIComponent(params.query), {
