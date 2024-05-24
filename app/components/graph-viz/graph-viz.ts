@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 import sparql, {
   type D3ForceGraph,
   type GraphConfig,
+  type Nodes,
 } from 'intro/services/sparql';
 import { tracked } from '@glimmer/tracking';
 import d3 from 'd3';
@@ -161,5 +162,10 @@ export default class GraphVizComponent extends Component {
     svg
       .attr('viewBox', `0 0 ${this.width} ${this.height}`)
       .attr('preserveAspectRatio', 'xMidYMid meet');
+  }
+
+  didInsertElement(): void {
+    super.didInsertElement();
+    this.fetchAndRenderGraph(this.args.query, this.args.config);
   }
 }
