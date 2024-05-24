@@ -59,7 +59,7 @@ export interface TripleObject {
       object: BindingObject;
     };
   };
-}
+};
 
 export default class SparqlRoute extends Route {
   @service declare sparql: sparql

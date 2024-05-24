@@ -74,7 +74,7 @@
 
             <SparqlQuery::SparqlQuery @query="SELECT * WHERE {?s ?p ?o} @limit={{10}}" />
 
-            <GraphViz::GraphViz />
+            <GraphViz::GraphViz @query="{{this.query}} @config={{this.config}}" />
           </div>
         </div>
 
