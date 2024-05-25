@@ -13,12 +13,19 @@ import d3 from 'd3';
 export default class GraphVizComponent extends Component {
   @service declare sparql: sparql;
   @tracked graphData: D3ForceGraph | null = null;
+  element: HTMLElement;
+
+  @action
+  async setupGraph(element: HTMLElement) {
+    this.element = element;
+    await this.fetchAndRenderGraph(this.args.query);
+  }
 
   @tracked width = window.innerWidth;
   @tracked height = window.innerHeight;
 
   @action
-  async fetchAndRenderGraph(query: string, config: GraphConfig) {
+  async fetchAndRenderGraph(query: string, config?: GraphConfig) {
     try {
       const rawData = await this.sparql.fetchData(query);
       const graphData = this.sparql.relationshipGraph(rawData, config);
@@ -29,6 +36,7 @@ export default class GraphVizComponent extends Component {
 
   @action
   renderGraph(graphData: D3ForceGraph) {
+    if (!this.element) return;
     const svg = d3.select(this.element);
 
     svg.selectAll('*').remove();
@@ -162,10 +170,5 @@ export default class GraphVizComponent extends Component {
     svg
       .attr('viewBox', `0 0 ${this.width} ${this.height}`)
       .attr('preserveAspectRatio', 'xMidYMid meet');
-  }
-
-  didInsertElement(): void {
-    super.didInsertElement();
-    this.fetchAndRenderGraph(this.args.query, this.args.config);
   }
 }
