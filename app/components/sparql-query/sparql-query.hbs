@@ -8,7 +8,10 @@
     </c.header>
     <c.content>
 
-      <AuTextarea value={{this.query}} {{on "input" this.updateQuery}} />
+      {{!-- template-lint-disable no-log --}}
+      {{log this.query}}
+
+      <AuTextarea width='block' {{on "input" this.updateQuery}} />
 
     </c.content>
     <c.footer>

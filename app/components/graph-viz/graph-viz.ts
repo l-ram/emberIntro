@@ -1,43 +1,66 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { inject as service } from '@ember/service';
-import sparql, {
-  type D3ForceGraph,
-  type GraphConfig,
-  type Nodes,
-} from 'intro/services/sparql';
+import sparql, { type D3ForceGraph, type Nodes } from 'intro/services/sparql';
 import { tracked } from '@glimmer/tracking';
 import d3 from 'd3';
+import { inject as service } from '@ember/service';
 
-export default class GraphVizComponent extends Component {
+interface GraphVizArgs {
+  graphData: D3ForceGraph;
+}
+
+export default class GraphVizComponent extends Component<GraphVizArgs> {
   @service declare sparql: sparql;
-  @tracked graphData: D3ForceGraph | null = null;
-  element: HTMLElement;
+  @tracked graphData!: D3ForceGraph | null;
+  @tracked width = window.innerWidth;
+  @tracked height = window.innerHeight;
+
+  element!: HTMLElement;
+
+  constructor(owner: unknown, args: GraphVizArgs) {
+    super(owner, args);
+    this.graphData = args.graphData;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    console.log('GraphVizComponent args:', args);
+  }
 
   @action
   async setupGraph(element: HTMLElement) {
     this.element = element;
-    await this.fetchAndRenderGraph(this.args.query);
-  }
-
-  @tracked width = window.innerWidth;
-  @tracked height = window.innerHeight;
-
-  @action
-  async fetchAndRenderGraph(query: string, config?: GraphConfig) {
     try {
-      const rawData = await this.sparql.fetchData(query);
-      const graphData = this.sparql.relationshipGraph(rawData, config);
+      const rawData = await this.sparql.fetchData(
+        `        PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?person ?colleague ?department
+WHERE {
+  ?person dbo:worksIn ?department.
+  ?colleague dbo:worksIn ?department.
+  FILTER (?person != ?colleague)
+}`,
+
+        // `SELECT ?book ?author ?abstract
+        //       WHERE {
+        //         ?book a dbo:Book .
+        //         ?book dbo:author ?author .
+        //         ?book dbo:abstract ?abstract .
+        //         FILTER (lang(?abstract) = 'en')
+        //       }
+        //       LIMIT 10`
+      );
+      console.log('json data:', rawData)
+      const graphData = this.sparql.relationshipGraph(rawData, {});
+      this.renderGraph(element, graphData);
     } catch (error) {
-      console.error('Error fetching or rendering graph data:', error);
+      console.error('Error fetching or rendering graph:', error);
     }
   }
 
   @action
-  renderGraph(graphData: D3ForceGraph) {
-    if (!this.element) return;
-    const svg = d3.select(this.element);
+  renderGraph(element: HTMLElement, graphData: D3ForceGraph) {
+    console.log('Rendering graph...', graphData);
+    const svg = d3.select(element);
 
     svg.selectAll('*').remove();
 

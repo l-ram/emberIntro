@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-classes */
 import EmberRouter from '@ember/routing/router';
 import config from 'intro/config/environment';
 import routes from './routes/routes';
@@ -20,7 +21,7 @@ Router.map(function () {
     const route = routesT[routeName];
     this.route(routeName, { path: route?.path });
   });
-  this.route('index');
+  this.route('index', { path: '/' });
   this.route('about');
 });
 

@@ -11,6 +11,7 @@ export default class SparqlQueryComponent extends Component {
   @action updateQuery(event: Event) {
     const target = event.target as HTMLInputElement;
     this.query = target.value;
+    console.log(this.query);
   }
 
   @action submitQuery() {

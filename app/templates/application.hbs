@@ -1,6 +1,8 @@
 {{page-title "QuickstartTS"}}
 
 <AuApp>
+  {{!-- template-lint-disable no-log --}}
+
   <NavBar />
   <AuMainContainer as |m|>
 
@@ -72,9 +74,8 @@
           </AuContent>
           <div class="au-o-grid au-o-grid--small">
 
-            <SparqlQuery::SparqlQuery @query="SELECT * WHERE {?s ?p ?o} @limit={{10}}" />
-
-            <GraphViz::GraphViz @query={{this.query}} />
+            <SparqlQuery::SparqlQuery @query={{this.query}} />
+            <GraphViz::GraphViz @query={{this.model.graphData}} />
           </div>
         </div>
 
