@@ -30,15 +30,24 @@ export default class GraphVizComponent extends Component<GraphVizArgs> {
   async setupGraph(element: HTMLElement) {
     this.element = element;
     try {
+
       const rawData = await this.sparql.fetchData(
         `        PREFIX dbo: <http://dbpedia.org/ontology/>
+        PREFIX dbp: <http://dbpedia.org/property/>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?person ?colleague ?department
-WHERE {
-  ?person dbo:worksIn ?department.
-  ?colleague dbo:worksIn ?department.
-  FILTER (?person != ?colleague)
-}`,
+        SELECT ?person ?personLabel ?position ?positionLabel ?organization ?organizationLabel
+        WHERE {
+          ?person rdf:type dbo:Person .
+          ?person dbo:position ?position .
+          ?person dbo:organisation ?organization .
+
+          OPTIONAL { ?person rdfs:label ?personLabel . FILTER (lang(?personLabel) = "en") }
+          OPTIONAL { ?position rdfs:label ?positionLabel . FILTER (lang(?positionLabel) = "en") }
+          OPTIONAL { ?organization rdfs:label ?organizationLabel . FILTER (lang(?organizationLabel) = "en") }
+        }
+        LIMIT 100`,
 
         // `SELECT ?book ?author ?abstract
         //       WHERE {
@@ -49,7 +58,7 @@ WHERE {
         //       }
         //       LIMIT 10`
       );
-      console.log('json data:', rawData)
+      console.log('json data:', rawData);
       const graphData = this.sparql.relationshipGraph(rawData, {});
       this.renderGraph(element, graphData);
     } catch (error) {
