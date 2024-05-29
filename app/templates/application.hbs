@@ -75,7 +75,9 @@
           <div class="au-o-grid au-o-grid--small">
 
             <SparqlQuery::SparqlQuery @query={{this.query}} />
-            <GraphViz::GraphViz @query={{this.model.graphData}} />
+            {{!--
+            <GraphViz::GenericGraphViz @query={{this.model.graphData}} /> --}}
+            <GraphViz::CompanyGraphViz />
           </div>
         </div>
 

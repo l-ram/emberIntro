@@ -6,11 +6,11 @@ import { tracked } from '@glimmer/tracking';
 import d3 from 'd3';
 import { inject as service } from '@ember/service';
 
-interface GraphVizArgs {
+interface GenericGraphVizArgs {
   graphData: D3ForceGraph;
 }
 
-export default class GraphVizComponent extends Component<GraphVizArgs> {
+export default class GenericGraphVizComponent extends Component<GenericGraphVizArgs> {
   @service declare sparql: sparql;
   @tracked graphData!: D3ForceGraph | null;
   @tracked width = window.innerWidth;
@@ -18,7 +18,7 @@ export default class GraphVizComponent extends Component<GraphVizArgs> {
 
   element!: HTMLElement;
 
-  constructor(owner: unknown, args: GraphVizArgs) {
+  constructor(owner: unknown, args: GenericGraphVizArgs) {
     super(owner, args);
     this.graphData = args.graphData;
     this.width = window.innerWidth;
@@ -30,7 +30,6 @@ export default class GraphVizComponent extends Component<GraphVizArgs> {
   async setupGraph(element: HTMLElement) {
     this.element = element;
     try {
-
       const rawData = await this.sparql.fetchData(
         `        PREFIX dbo: <http://dbpedia.org/ontology/>
         PREFIX dbp: <http://dbpedia.org/property/>
