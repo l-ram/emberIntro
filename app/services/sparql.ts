@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import d3 from 'd3';
@@ -16,11 +17,11 @@ export interface D3ForceGraph {
 }
 
 export interface Nodes extends d3.SimulationNodeDatum {
-  key: string;
-  label: string;
-  value: boolean;
+  key?: string;
+  label?: string;
+  value?: boolean;
   level?: number | null;
-  type: string;
+  type?: string;
 }
 
 export interface Links extends d3.SimulationLinkDatum<Nodes> {
@@ -417,70 +418,114 @@ export default class SparqlService extends Service {
   }
 
   companyGraph(config?: GraphConfig): D3ForceGraph {
-    const head: string[] = companyJsonResults.head.vars;
-    const results = companyJsonResults.results.bindings;
-
-    const nodeTypeMapping: { [key: string]: string } = {};
-
-    head.forEach((head) => {
-      nodeTypeMapping[head] = head;
-    });
-
-    const opts = {
-      employee: 'employee',
-      position: 'position',
-      manager: 'manager',
-      department: 'department',
-    };
-    const graph: D3ForceGraph = {
+    // Create a D3 graph data object
+    const graphData: D3ForceGraph = {
       nodes: [],
       links: [],
     };
-    const check = new Map();
-    let index = 0;
 
-    for (let i = 0; i < results.length; i++) {
-      // @ts-expect-error
-      const employeeUri = results[i][opts.employee].value;
-      // @ts-expect-error
-      const position = results[i][opts.position].value;
-      // @ts-expect-error
-      const manager = results[i][opts.manager].value;
-      // @ts-expect-error
-      const department = results[i][opts.department].value;
+    let nodes: Nodes[] = [];
+    let links: Links[] = [];
 
-      const employee = employeeUri.split('/').pop();
+    companyJsonResults.results.bindings.forEach((entry) => {
+      const employeeUri = entry.employee.value;
+      const employeeName = employeeUri.split('/').pop()?.replace('_', ' ');
+      const department = entry.department.value;
 
-      if (!check.has(employee)) {
-        graph.nodes.push({
-          key: employee,
-          type: position,
-          value: manager,
-          label: department,
-        });
-        check.set(employee, index);
-        index++;
-      }
-    }
+      const managerName =
+        entry.manager.value === 'None' ? null : entry.manager.value;
 
-    console.log(check);
+      // Add employee as a node
+      graphData.nodes.push({
+        key: employeeName,
+        type: entry.position.value,
+        label: department,
+      });
 
-    for (let i = 0; i < results.length; i++) {
-      const employeeUri = results[i][opts.employee].value;
-      const managerUri = results[i][opts.manager].value;
-
-      const employee = employeeUri.split('/').pop();
-      const manager =
-        managerUri !== 'None' ? managerUri.split('/').pop() : null;
-
-      if (manager && check.has(manager)) {
-        graph.links.push({
-          source: check.get(manager),
-          target: check.get(employee),
+      // If the employee has a manager, create a link
+      if (managerName) {
+        graphData.links.push({
+          source: managerName,
+          target: employeeName,
         });
       }
-    }
-    return graph;
+    });
+
+    // Create a unique set of nodes (remove duplicates)
+    nodes = Array.from(new Set(nodes.map((node) => node.key as string))).map(
+      (id) => ({
+        id,
+      }),
+    );
+
+    return graphData;
+
+    // const head: string[] = companyJsonResults.head.vars;
+    // const results = companyJsonResults.results.bindings;
+
+    // const nodeTypeMapping: { [key: string]: string } = {};
+
+    // head.forEach((head) => {
+    //   nodeTypeMapping[head] = head;
+    // });
+
+    // const opts = {
+    //   employee: 'employee',
+    //   position: 'position',
+    //   manager: 'manager',
+    //   department: 'department',
+    // };
+    // const graph: D3ForceGraph = {
+    //   nodes: [],
+    //   links: [],
+    // };
+    // const check = new Map();
+    // let index = 0;
+
+    // for (let i = 0; i < results.length; i++) {
+    //   // @ts-expect-error
+    //   const employeeUri = results[i][opts.employee].value;
+    //   // @ts-expect-error
+    //   const position = results[i][opts.position].value;
+    //   // @ts-expect-error
+    //   const managerUri = results[i][opts.manager].value;
+    //   // @ts-expect-error
+    //   const department = results[i][opts.department].value;
+
+    //   const employee = employeeUri.split('/').pop();
+    //   const manager =
+    //     managerUri !== 'None' ? managerUri.split('/').pop() : null;
+
+    //   if (!check.has(employee)) {
+    //     graph.nodes.push({
+    //       key: employee,
+    //       type: position,
+    //       value: manager,
+    //       label: department,
+    //     });
+    //     check.set(employee, index);
+    //     index++;
+    //   }
+
+    //   if (manager && !check.has(manager)) {
+    //     graph.nodes.push({
+    //       key: manager,
+    //       type: position,
+    //       value: manager,
+    //       label: department,
+    //     });
+    //     check.set(manager, index);
+    //     index++;
+    //   }
+
+    //   if (manager) {
+    //     graph.links.push({
+    //       source: check.get(manager),
+    //       target: check.get(employee),
+    //     });
+    //   }
+    // }
+    // return graph;
   }
 
   relationshipGraph(

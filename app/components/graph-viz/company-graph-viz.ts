@@ -28,6 +28,7 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
     this.element = element;
     try {
       const graphData = this.sparql.companyGraph();
+      console.log(graphData);
       this.renderGraph(element, graphData);
     } catch (error) {
       console.error('Error fetching or rendering graph:', error);
