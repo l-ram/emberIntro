@@ -340,6 +340,60 @@ const companyJsonResults = {
         manager: { type: 'literal', value: 'None' },
         department: { type: 'literal', value: 'Security' },
       },
+      {
+        employee: {
+          type: 'uri',
+          value: 'http://example.org/employees/Edward_Scissorhands',
+        },
+        position: { type: 'literal', value: 'Manager' },
+        manager: { type: 'literal', value: 'Daniel Smith' },
+        department: { type: 'literal', value: 'Security' },
+      },
+      {
+        employee: {
+          type: 'uri',
+          value: 'http://example.org/employees/Daniel_Smith',
+        },
+        position: { type: 'literal', value: 'Employee' },
+        manager: { type: 'literal', value: 'Edward Scissorhands' },
+        department: { type: 'literal', value: 'Security' },
+      },
+      {
+        employee: {
+          type: 'uri',
+          value: 'http://example.org/employees/Jamie_Chunks',
+        },
+        position: { type: 'literal', value: 'Employee' },
+        manager: { type: 'literal', value: 'Edward Scissorhands' },
+        department: { type: 'literal', value: 'Security' },
+      },
+      {
+        employee: {
+          type: 'uri',
+          value: 'http://example.org/employees/Clarissa_Coombs',
+        },
+        position: { type: 'literal', value: 'Employee' },
+        manager: { type: 'literal', value: 'Edward Scissorhands' },
+        department: { type: 'literal', value: 'Security' },
+      },
+      {
+        employee: {
+          type: 'uri',
+          value: 'http://example.org/employees/Petunia_Rivers',
+        },
+        position: { type: 'literal', value: 'Employee' },
+        manager: { type: 'literal', value: 'Edward Scissorhands' },
+        department: { type: 'literal', value: 'Security' },
+      },
+      {
+        employee: {
+          type: 'uri',
+          value: 'http://example.org/employees/Crystal_Bell',
+        },
+        position: { type: 'literal', value: 'Employee' },
+        manager: { type: 'literal', value: 'Edward Scissorhands' },
+        department: { type: 'literal', value: 'Security' },
+      },
     ],
   },
 };
@@ -387,7 +441,7 @@ export default class SparqlService extends Service {
 
     for (let i = 0; i < results.length; i++) {
       // @ts-expect-error
-      const employee = results[i][opts.employee].value;
+      const employeeUri = results[i][opts.employee].value;
       // @ts-expect-error
       const position = results[i][opts.position].value;
       // @ts-expect-error
@@ -395,10 +449,7 @@ export default class SparqlService extends Service {
       // @ts-expect-error
       const department = results[i][opts.department].value;
 
-      console.log('name:', employee);
-      console.log('position:', position);
-      console.log('manager:', manager);
-      console.log('department:', department);
+      const employee = employeeUri.split('/').pop();
 
       if (!check.has(employee)) {
         graph.nodes.push({
@@ -410,19 +461,19 @@ export default class SparqlService extends Service {
         check.set(employee, index);
         index++;
       }
+    }
 
-      if (manager !== 'None' && !check.has(manager)) {
-        graph.nodes.push({
-          key: employee,
-          type: position,
-          value: manager,
-          label: department,
-        });
-        check.set(manager, index);
-        index++;
-      }
+    console.log(check);
 
-      if (manager !== 'None') {
+    for (let i = 0; i < results.length; i++) {
+      const employeeUri = results[i][opts.employee].value;
+      const managerUri = results[i][opts.manager].value;
+
+      const employee = employeeUri.split('/').pop();
+      const manager =
+        managerUri !== 'None' ? managerUri.split('/').pop() : null;
+
+      if (manager && check.has(manager)) {
         graph.links.push({
           source: check.get(manager),
           target: check.get(employee),
