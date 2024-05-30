@@ -5,6 +5,7 @@ import sparql, { type D3ForceGraph, type Nodes } from 'intro/services/sparql';
 import { tracked } from '@glimmer/tracking';
 import d3 from 'd3';
 import { inject as service } from '@ember/service';
+import { attr } from '@ember-data/model';
 
 interface CompanyGraphVizArgs {
   graphData: D3ForceGraph;
@@ -28,7 +29,6 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
     this.element = element;
     try {
       const graphData = this.sparql.companyGraph();
-      console.log(graphData);
       this.renderGraph(element, graphData);
     } catch (error) {
       console.error('Error fetching or rendering graph:', error);
@@ -44,6 +44,11 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
 
     const g = svg.append('g');
 
+    // COLOURS!!!
+    const departmentColours = d3.scaleOrdinal(d3.schemeDark2);
+    const managerColour = 'darkGrey';
+    const seniorManagerColour = 'grey';
+
     const colours = d3.schemeSet2;
     const colour = d3.scaleOrdinal(colours);
 
@@ -57,8 +62,11 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
     svg.call(zoom as any);
 
     const simulation = d3
-      .forceSimulation(graphData.nodes)
-      .force('link', d3.forceLink(graphData.links))
+      .forceSimulation(graphData.nodes as d3.SimulationNodeDatum[])
+      .force(
+        'link',
+        d3.forceLink(graphData.links).id((d) => (d as Nodes).key as string),
+      )
       .force('charge', d3.forceManyBody())
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
       .force('x', d3.forceX())
@@ -150,13 +158,33 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
       .selectAll('circle')
       .data(graphData.nodes)
       .enter()
+      .append('g')
+      .attr('class', 'node')
       .append('circle')
       .attr('r', (d) => nodeSize(d))
-      .style('fill', (d) => colour(d.type))
+      .style('fill', (d) => {
+        if (d.type === 'Manager') {
+          return managerColour;
+        } else if (d.type === 'Senior Manager') {
+          return seniorManagerColour;
+        } else {
+          return departmentColours(d.label as string);
+        }
+      })
       .join('circle')
       .call(drag(simulation as any) as any);
 
-    node.append('title').text((d) => d.key);
+    const labels = g
+      .selectAll('.node')
+      .append('text')
+      .text((d) => (d as Nodes).key as string)
+      .attr('x', (d) => (d as Nodes).x as number)
+      .attr('y', (d) => (d as Nodes).y as number)
+      .style('font-size', '8px')
+      .style('fill', 'black')
+      .style('font-family', 'Arial');
+
+    node.append('title').text((d) => d.key as string);
 
     simulation.on('tick', () => {
       link
@@ -166,6 +194,8 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
         .attr('y2', (d) => d.target.y as number);
 
       node.attr('cx', (d) => d.x as number).attr('cy', (d) => d.y as number);
+
+      labels.attr('transform', (d: Nodes) => `translate(${d.x},${d.y})`);
     });
 
     svg

@@ -353,15 +353,6 @@ const companyJsonResults = {
       {
         employee: {
           type: 'uri',
-          value: 'http://example.org/employees/Daniel_Smith',
-        },
-        position: { type: 'literal', value: 'Employee' },
-        manager: { type: 'literal', value: 'Edward Scissorhands' },
-        department: { type: 'literal', value: 'Security' },
-      },
-      {
-        employee: {
-          type: 'uri',
           value: 'http://example.org/employees/Jamie_Chunks',
         },
         position: { type: 'literal', value: 'Employee' },
@@ -453,8 +444,8 @@ export default class SparqlService extends Service {
 
     // Create a unique set of nodes (remove duplicates)
     nodes = Array.from(new Set(nodes.map((node) => node.key as string))).map(
-      (id) => ({
-        id,
+      (key) => ({
+        key,
       }),
     );
 
