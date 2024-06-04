@@ -54,9 +54,9 @@ export interface TripleObject {
   [key: string]: {
     type: "triple";
     value: {
-      subject: BindingObject;
-      predicate: BindingObject;
-      object: BindingObject;
+      subject: string;
+      predicate: string;
+      object: string;
     };
   };
 };

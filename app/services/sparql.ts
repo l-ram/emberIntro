@@ -22,6 +22,7 @@ export interface Nodes extends d3.SimulationNodeDatum {
   value?: boolean;
   level?: number | null;
   type?: string;
+  photo?: string;
 }
 
 export interface Links extends d3.SimulationLinkDatum<Nodes> {
@@ -52,6 +53,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Senior Manager' },
         manager: { type: 'literal', value: 'None' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -61,6 +63,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Manager' },
         manager: { type: 'literal', value: 'John Doe' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -70,6 +73,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -79,6 +83,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -88,6 +93,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -97,6 +103,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -106,6 +113,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -115,6 +123,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -124,6 +133,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -133,6 +143,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Jane Smith' },
         department: { type: 'literal', value: 'Data Visualization' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -142,6 +153,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Senior Manager' },
         manager: { type: 'literal', value: 'None' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -151,6 +163,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Manager' },
         manager: { type: 'literal', value: 'Emily White' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -160,6 +173,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -169,6 +183,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -178,6 +193,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -187,6 +203,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -196,6 +213,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -205,6 +223,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -214,6 +233,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -223,6 +243,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -232,6 +253,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'David Johnson' },
         department: { type: 'literal', value: 'Bold' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -241,6 +263,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Senior Manager' },
         manager: { type: 'literal', value: 'None' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -250,6 +273,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Manager' },
         manager: { type: 'literal', value: 'Alice Johnson' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -259,6 +283,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -268,6 +293,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -277,6 +303,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -286,6 +313,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -295,6 +323,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -304,6 +333,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -313,6 +343,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -322,6 +353,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -331,6 +363,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Michael Brown' },
         department: { type: 'literal', value: 'HR' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -340,6 +373,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Senior Manager' },
         manager: { type: 'literal', value: 'None' },
         department: { type: 'literal', value: 'Security' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -349,6 +383,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Manager' },
         manager: { type: 'literal', value: 'Daniel Smith' },
         department: { type: 'literal', value: 'Security' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -358,6 +393,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Edward Scissorhands' },
         department: { type: 'literal', value: 'Security' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -367,6 +403,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Edward Scissorhands' },
         department: { type: 'literal', value: 'Security' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -376,6 +413,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Edward Scissorhands' },
         department: { type: 'literal', value: 'Security' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
       {
         employee: {
@@ -385,6 +423,7 @@ const companyJsonResults = {
         position: { type: 'literal', value: 'Employee' },
         manager: { type: 'literal', value: 'Edward Scissorhands' },
         department: { type: 'literal', value: 'Security' },
+        photo: { type: 'literal', value: 'https://picsum.photos/200' },
       },
     ],
   },
@@ -422,6 +461,7 @@ export default class SparqlService extends Service {
       const employeeUri = entry.employee.value;
       const employeeName = employeeUri.split('/').pop()?.replace('_', ' ');
       const department = entry.department.value;
+      const photo = entry.photo.value;
 
       const managerName =
         entry.manager.value === 'None' ? null : entry.manager.value;
@@ -431,6 +471,7 @@ export default class SparqlService extends Service {
         key: employeeName,
         type: entry.position.value,
         label: department,
+        photo: photo,
       });
 
       // If the employee has a manager, create a link

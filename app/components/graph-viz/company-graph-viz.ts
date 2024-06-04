@@ -40,6 +40,10 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
     console.log('Rendering graph...', graphData);
     const svg = d3.select(element);
 
+    svg
+      .attr('viewBox', `0 0 ${this.width} ${this.height}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+
     svg.selectAll('*').remove();
 
     const g = svg.append('g');
@@ -140,10 +144,25 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
     const nodeSize = (d: Nodes): number => {
       const sizeScale = d3.scaleLinear().domain([0, maxCount]).range([2, 10]);
 
-      const numberOfConnections = getConnectionsCount(d.key, graphData.links);
+      const numberOfConnections = getConnectionsCount(
+        d.key as string,
+        graphData.links,
+      );
       const radius = sizeScale(numberOfConnections);
       return radius;
     };
+
+    const defs = svg.append('defs');
+
+    graphData.nodes.forEach((d) => {
+      defs
+        .append('clipPath')
+        .attr('id', `clip-path-${d.index}`)
+        .append('circle')
+        .attr('r', nodeSize(d))
+        .attr('cx', 0)
+        .attr('cy', 0);
+    });
 
     const link = g
       .selectAll('line')
@@ -155,29 +174,78 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
       .attr('opacity', 0.5);
 
     const node = g
-      .selectAll('circle')
+      .selectAll('node')
       .data(graphData.nodes)
       .enter()
       .append('g')
       .attr('class', 'node')
+      .call(drag(simulation as any) as any)
+      .on('mouseover', function (d: Nodes) {
+        link.attr('stroke', function (link) {
+          return link.source.key === d.key || link.target.key === d.key
+            ? 'black'
+            : '#ccc';
+        });
+      })
+      .on('mouseout', function () {
+        link.attr('stroke', '#ccc');
+      });
+
+    node
       .append('circle')
       .attr('r', (d) => nodeSize(d))
+      .style('stroke', 'black')
       .style('fill', (d) => {
         if (d.type === 'Manager') {
-          return managerColour;
+          return 'none';
         } else if (d.type === 'Senior Manager') {
           return seniorManagerColour;
         } else {
           return departmentColours(d.label as string);
         }
       })
-      .join('circle')
-      .call(drag(simulation as any) as any);
+      .style('stroke', 'darkGray')
+      .style('stroke-width', 0.5)
+      .style('stroke-width', (d) =>
+        d.type === 'Manager' && 'Senior Manager' ? 2 : 0.5,
+      )
+      .on('mouseover', function () {
+        d3.select(this).style('stroke', 'black');
+        d3.select('image').style('stroke', 'black');
+      })
+      .on('mouseout', function () {
+        d3.select(this).style('stroke', 'darkGray');
+      });
 
-    const labels = g
-      .selectAll('.node')
+    // Manager images
+    node
+      .filter((d) => d.type === 'Manager')
+      .append('svg:image')
+      .attr('xlink:href', (d) => {
+        return (d as Nodes).photo as string;
+      })
+      .attr('x', (d) => -nodeSize(d))
+      .attr('y', (d) => -nodeSize(d))
+      .attr('width', (d) => 2 * nodeSize(d))
+      .attr('height', (d) => 2 * nodeSize(d))
+      .attr('clip-path', (d) => `url(#clip-path-${d.index})`)
+      .on('mouseover', function (d) {
+        d3.select(this.parentNode).select('circle').style('stroke', 'black');
+      })
+      .on('mouseout', function () {
+        d3.select(this.parentNode).select('circle').style('stroke', 'darkGray');
+      });
+
+    // Department labels
+    node
       .append('text')
-      .text((d) => (d as Nodes).key as string)
+      .text((d) => {
+        if (d.type === 'Manager') {
+          return d.label as string;
+        } else {
+          return null;
+        }
+      })
       .attr('x', (d) => (d as Nodes).x as number)
       .attr('y', (d) => (d as Nodes).y as number)
       .style('font-size', '8px')
@@ -193,13 +261,7 @@ export default class CompanyGraphVizComponent extends Component<CompanyGraphVizA
         .attr('x2', (d) => d.target.x as number)
         .attr('y2', (d) => d.target.y as number);
 
-      node.attr('cx', (d) => d.x as number).attr('cy', (d) => d.y as number);
-
-      labels.attr('transform', (d: Nodes) => `translate(${d.x},${d.y})`);
+      node.attr('transform', (d) => `translate(${d.x},${d.y})`);
     });
-
-    svg
-      .attr('viewBox', `0 0 ${this.width} ${this.height}`)
-      .attr('preserveAspectRatio', 'xMidYMid meet');
   }
 }
